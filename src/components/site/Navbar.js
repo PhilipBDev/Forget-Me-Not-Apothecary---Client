@@ -134,7 +134,7 @@ const Hamburger = styled.div`
   align-items: center;
   cursor: pointer;
   &:hover {
-    background: rgb(36, 101, 166);
+    background: rgba(243, 255, 74, 0.9);
   }
   @media (max-width: 960px) {
     display: flex;
