@@ -6,7 +6,7 @@ const Navbar = ({ click }) => {
   return (
     <Nav>
       <div>
-        <Title>Forget-Me-Not Apothecary</Title>
+        <Title to="/">Forget-Me-Not Apothecary</Title>
       </div>
       <BurgerMenu />
     </Nav>
@@ -28,11 +28,15 @@ const Nav = styled.nav`
   align-items: center;
   padding: 1.5rem 2rem;
   margin-bottom: 1rem;
+  border-bottom: 2px solid #fff;
   z-index: 50;
 `;
-const Title = styled.h2`
+const Title = styled(Link)`
   color: #fff;
-  font-size: 30px;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
     1px 1px 0 #000;
   @media (max-width: 640px) {
