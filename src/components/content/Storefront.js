@@ -8,6 +8,17 @@ const Storefront = () => {
 
       <ProductCardDisplay>
         <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
       </ProductCardDisplay>
     </StoreStyle>
   );
@@ -25,7 +36,7 @@ const StoreStyle = styled.div`
 `;
 
 const Title = styled.h2`
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   color: #fff;
   margin-bottom: 1rem;
   margin-left: 8px;

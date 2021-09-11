@@ -104,6 +104,7 @@ const Title = styled.p`
 
 const Description = styled.p`
   font-size: 0.8rem;
+  margin-top: 0.5rem;
 `;
 
 const Price = styled.p`
