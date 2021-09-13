@@ -4,19 +4,18 @@ const ProductPage = () => {
   return (
     <ProductStyle>
       <LeftSide>
-        <LeftImage>
-          <img
+        <LeftImageSection>
+          <LeftImage
             src="https://www.edenbrothers.com/store/media/Seeds-Flowers/resized/SFFOR113-1_medium.jpg"
             alt="product name"
           />
-        </LeftImage>
+        </LeftImageSection>
 
         <LeftInfo>
           <LeftName>Product 1</LeftName>
-          <LeftPrice>Price: $19.99</LeftPrice>
           <LeftDescription>
-            Description: Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Libero dolor suscipit impedit asperiores expedita quod.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero
+            dolor suscipit impedit asperiores expedita quod.
           </LeftDescription>
         </LeftInfo>
       </LeftSide>
@@ -73,7 +72,7 @@ const LeftSide = styled.div`
   }
 `;
 
-const LeftImage = styled.div`
+const LeftImageSection = styled.div`
   margin: 1rem;
   flex: 0.6;
 
@@ -82,12 +81,26 @@ const LeftImage = styled.div`
   }
 `;
 
+const LeftImage = styled.img`
+  border-radius: 1rem;
+
+  @media (max-width: 960px) {
+    width: 100%;
+    height: 300px;
+  }
+`;
+
 const LeftInfo = styled.div`
   margin: 1rem;
   flex: 0.4;
-  background: #fff;
+  background: rgba(36, 101, 166, 0.5);
+  color: #fff;
   height: fit-content;
+  padding: 1rem;
   font-size: 0.9rem;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  border-radius: 1rem;
 
   @media (max-width: 960px) {
     flex: 1;
@@ -97,11 +110,7 @@ const LeftInfo = styled.div`
 const LeftName = styled.p`
   font-weight: bold;
   font-size: 1.3rem;
-`;
-
-const LeftPrice = styled.p`
-  padding: 1rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  margin-bottom: 0.5rem;
 `;
 
 const LeftDescription = styled.p`
@@ -122,8 +131,12 @@ const RightSide = styled.div`
 const RightInfo = styled.div`
   width: 250px;
   margin: 1rem;
-  background: #fff;
+  background: rgba(36, 101, 166, 0.5);
+  color: #fff;
+  padding: 1rem;
+  border: 2px solid #fff;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  border-radius: 1rem;
 
   @media (max-width: 960px) {
     width: 100%;
@@ -133,7 +146,8 @@ const RightInfo = styled.div`
 
 const RightParagraph = styled.p`
   padding: 1rem;
-  font-size: 0.8rem;
+  font-size: 1rem;
+  font-weight: bold;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 `;
@@ -148,11 +162,26 @@ const RightButtonSection = styled(RightParagraph)`
 
 const RightButton = styled.button`
   grid-column: 1/-1;
-  width: 100%;
-  padding: 10px 16px;
-  background: #171717;
-  color: #f4f4f4;
-  border: 1px solid #171717;
+  text-decoration: none;
   cursor: pointer;
-  border-radius: 5px;
+  text-align: center;
+  color: #fff;
+  width: 100%;
+  padding: 8px 16px;
+  background: rgba(66, 194, 245, 0.8);
+  border: 1px solid #fff;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border-radius: 1rem;
+
+  &:hover {
+    background: rgba(243, 255, 74, 0.9);
+    color: #fff;
+    font-weight: bold;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+      1px 1px 0 #000;
+    font-size: 1.2rem;
+  }
 `;
