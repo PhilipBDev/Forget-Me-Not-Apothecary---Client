@@ -1,26 +1,18 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const ProductCard = () => {
+const ProductCard = ({ imageUrl, name, price, description, productId }) => {
   return (
     <CardStyle>
-      <CardImage
-        src="https://www.edenbrothers.com/store/media/Seeds-Flowers/resized/SFFOR113-1_medium.jpg"
-        alt="product name"
-      />
+      <CardImage src={imageUrl} alt={name} />
 
       <CardInfo>
-        <Title>Product 1</Title>
-        <Description>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-          recusandae facilis, ipsa vel dolorum aliquam cum? Totam vero molestias
-          nemo, porro eos, pariatur nihil numquam eligendi, quasi autem ratione
-          enim!
-        </Description>
+        <Title>{name}</Title>
+        <Description>{description}</Description>
 
-        <Price>$49.99</Price>
+        <Price>${price}</Price>
 
-        <ProductLink to={`/product/${1919}`}>View</ProductLink>
+        <ProductLink to={`/product/${productId}`}>View</ProductLink>
       </CardInfo>
     </CardStyle>
   );

@@ -1,24 +1,43 @@
 import styled from 'styled-components';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
 import ProductCard from './ProductCard';
 
+// Actions
+import { getProducts as listProducts } from '../../redux/actions/productActions';
+
 const Storefront = () => {
+  const dispatch = useDispatch();
+
+  const getProducts = useSelector((state) => state.getProducts);
+  const { products, loading, error } = getProducts;
+
+  useEffect(() => {
+    dispatch(listProducts());
+  }, [dispatch]);
+
   return (
     <StoreStyle>
-      <Title>Latest Products</Title>
+      <Header>Latest Products</Header>
 
       <ProductCardDisplay>
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
+        {loading ? (
+          <Header>Loading...</Header>
+        ) : error ? (
+          <Header>{error}</Header>
+        ) : (
+          products.map((product) => (
+            <ProductCard
+              key={product._id}
+              name={product.name}
+              description={product.description}
+              price={product.price}
+              imageUrl={product.imageUrl}
+              productId={product._id}
+            />
+          ))
+        )}
       </ProductCardDisplay>
     </StoreStyle>
   );
@@ -35,7 +54,7 @@ const StoreStyle = styled.div`
   margin: 1rem auto;
 `;
 
-const Title = styled.h2`
+const Header = styled.h2`
   font-size: 1.75rem;
   color: #fff;
   margin-bottom: 1rem;
