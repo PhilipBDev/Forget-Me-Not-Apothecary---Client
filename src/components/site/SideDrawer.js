@@ -1,7 +1,15 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const SideDrawer = ({ show }) => {
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
+
+  const getCartCount = () => {
+    return cartItems.reduce((qty, item) => Number(item.qty) + qty, 0);
+  };
+
   return (
     <StyleSideDrawer show={show}>
       <Li>
@@ -9,7 +17,7 @@ const SideDrawer = ({ show }) => {
           <CartLink to="/cart">
             <i className="fas fa-shopping-cart"></i>
             <CartNav>Cart</CartNav>
-            <CartNav>0</CartNav>
+            <CartNav>({getCartCount()})</CartNav>
           </CartLink>
         </CartButton>
       </Li>

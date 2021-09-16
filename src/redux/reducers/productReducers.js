@@ -30,7 +30,7 @@ export const getProductDetailsReducer = (state = { product: {} }, action) => {
       };
     case actionTypes.GET_PRODUCT_DETAILS_SUCCESS:
       return {
-        loading: true,
+        loading: false,
         product: action.payload,
       };
     case actionTypes.GET_PRODUCT_DETAILS_FAIL:

@@ -1,47 +1,81 @@
 import styled from 'styled-components';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-const ProductPage = () => {
+// Actions
+import { getProductDetails } from '../../redux/actions/productActions';
+import { addToCart } from '../../redux/actions/cartActions';
+
+const ProductPage = ({ match, history }) => {
+  const [qty, setQty] = useState(1);
+  const dispatch = useDispatch();
+
+  const productDetails = useSelector((state) => state.getProductDetails);
+  const { loading, error, product } = productDetails;
+
+  useEffect(() => {
+    if (product && match.params.id !== product._id) {
+      dispatch(getProductDetails(match.params.id));
+    }
+  }, [dispatch, match, product]);
+
+  const addToCartHandler = () => {
+    dispatch(addToCart(product._id, qty));
+    history.push('/cart');
+  };
+
   return (
     <ProductStyle>
-      <LeftSide>
-        <LeftImageSection>
-          <LeftImage
-            src="https://www.edenbrothers.com/store/media/Seeds-Flowers/resized/SFFOR113-1_medium.jpg"
-            alt="product name"
-          />
-        </LeftImageSection>
+      {loading ? (
+        <Header>Loading...</Header>
+      ) : error ? (
+        <Header>{error}</Header>
+      ) : (
+        <>
+          <LeftSide>
+            <LeftImageSection>
+              <LeftImage src={product.imageUrl} alt={product.name} />
+            </LeftImageSection>
 
-        <LeftInfo>
-          <LeftName>Product 1</LeftName>
-          <LeftDescription>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero
-            dolor suscipit impedit asperiores expedita quod.
-          </LeftDescription>
-        </LeftInfo>
-      </LeftSide>
+            <LeftInfo>
+              <LeftName>{product.name}</LeftName>
+              <LeftDescription>{product.description}</LeftDescription>
+            </LeftInfo>
+          </LeftSide>
 
-      <RightSide>
-        <RightInfo>
-          <RightParagraph>
-            Price: <span>$29.99</span>
-          </RightParagraph>
-          <RightParagraph>
-            Status: <span>In Stock</span>
-          </RightParagraph>
-          <RightParagraph>
-            Qty:
-            <RightSelect>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-            </RightSelect>
-          </RightParagraph>
-          <RightButtonSection>
-            <RightButton type="button">Add To Cart</RightButton>
-          </RightButtonSection>
-        </RightInfo>
-      </RightSide>
+          <RightSide>
+            <RightInfo>
+              <RightParagraph>
+                Price: <span>{product.price}</span>
+              </RightParagraph>
+              <RightParagraph>
+                Status:{' '}
+                <span>
+                  {product.countInStock > 0 ? 'In Stock' : 'Out of Stock'}
+                </span>
+              </RightParagraph>
+              <RightParagraph>
+                Qty:
+                <RightSelect
+                  value={qty}
+                  onChange={(e) => setQty(e.target.value)}
+                >
+                  {[...Array(product.countInStock).keys()].map((x) => (
+                    <option key={x + 1} value={x + 1}>
+                      {x + 1}
+                    </option>
+                  ))}
+                </RightSelect>
+              </RightParagraph>
+              <RightButtonSection>
+                <RightButton type="button" onClick={addToCartHandler}>
+                  Add To Cart
+                </RightButton>
+              </RightButtonSection>
+            </RightInfo>
+          </RightSide>
+        </>
+      )}
     </ProductStyle>
   );
 };
@@ -184,4 +218,14 @@ const RightButton = styled.button`
       1px 1px 0 #000;
     font-size: 1.2rem;
   }
+`;
+
+const Header = styled.h2`
+  font-size: 1.75rem;
+  color: #fff;
+  margin-bottom: 1rem;
+  margin-left: 8px;
+  padding-top: 1rem;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
 `;

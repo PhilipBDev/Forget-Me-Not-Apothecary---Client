@@ -1,19 +1,60 @@
 import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import SingleItem from './SingleItem';
 
+import { addToCart, removeFromCart } from '../../redux/actions/cartActions';
+
 const Cart = () => {
+  const dispatch = useDispatch();
+
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
+
+  useEffect(() => {}, []);
+
+  const qtyChangeHandler = (id, qty) => {
+    dispatch(addToCart(id, qty));
+  };
+
+  const removeFromCartHandler = (id) => {
+    dispatch(removeFromCart(id));
+  };
+
+  const getCartCount = () => {
+    return cartItems.reduce((qty, item) => Number(item.qty) + qty, 0);
+  };
+
+  const getCartSubTotal = () => {
+    return cartItems
+      .reduce((price, item) => price + item.price * item.qty, 0)
+      .toFixed(2);
+  };
+
   return (
     <CartStyle>
       <LeftSide>
         <CartHeader>Shopping Cart</CartHeader>
-        <SingleItem />
-        <SingleItem />
-        <SingleItem />
+        {cartItems.length === 0 ? (
+          <CartHeader>
+            Your Cart Is Empty <Link to="/">Go Back</Link>
+          </CartHeader>
+        ) : (
+          cartItems.map((item) => (
+            <SingleItem
+              key={item.product}
+              item={item}
+              qtyChangeHandler={qtyChangeHandler}
+              removeHandler={removeFromCartHandler}
+            />
+          ))
+        )}
       </LeftSide>
       <RightSide>
         <CartInfo>
-          <CartSubtotal>Subtotal for (0) items:</CartSubtotal>
-          <CartPrice>$29.99</CartPrice>
+          <CartSubtotal>Subtotal for ({getCartCount()}) items:</CartSubtotal>
+          <CartPrice>${getCartSubTotal()}</CartPrice>
         </CartInfo>
         <ButtonStyle>
           <CheckoutBtn>Proceed to Checkout</CheckoutBtn>

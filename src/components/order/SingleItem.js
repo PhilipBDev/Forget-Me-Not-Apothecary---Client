@@ -1,29 +1,30 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const SingleItem = () => {
+const SingleItem = ({ item, qtyChangeHandler, removeHandler }) => {
   return (
     <ItemStyle>
       <div>
-        <img
-          src="https://www.edenbrothers.com/store/media/Seeds-Flowers/resized/SFFOR113-1_medium.jpg"
-          alt="product name"
-        />
+        <img src={item.imageUrl} alt={item.name} />
       </div>
 
-      <ItemName to={`/product/${1919}`} className="cartitem-name">
-        <p>Product 1</p>
+      <ItemName to={`/product/${item.product}`}>
+        <p>{item.name}</p>
       </ItemName>
-      <ItemPrice>$29.99</ItemPrice>
+      <ItemPrice>{item.price}</ItemPrice>
 
-      <ItemSelect className="cartitem-select">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
+      <ItemSelect
+        value={item.qty}
+        onChange={(e) => qtyChangeHandler(item.product, e.target.value)}
+      >
+        {[...Array(item.countInStock).keys()].map((x) => (
+          <option key={x + 1} value={x + 1}>
+            {x + 1}
+          </option>
+        ))}
       </ItemSelect>
 
-      <DeleteItem className="cartitem-deleteBtn">
+      <DeleteItem onClick={() => removeHandler(item.product)}>
         <i className="fas fa-trash"></i>
       </DeleteItem>
     </ItemStyle>
