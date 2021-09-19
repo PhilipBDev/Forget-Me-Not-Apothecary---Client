@@ -38,7 +38,7 @@ const Cart = () => {
         <CartHeader>Shopping Cart</CartHeader>
         {cartItems.length === 0 ? (
           <CartHeader>
-            Your Cart Is Empty <Link to="/">Go Back</Link>
+            Your Cart Is Empty <Back to="/">Go Back</Back>
           </CartHeader>
         ) : (
           cartItems.map((item) => (
@@ -121,6 +121,31 @@ const CartInfo = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   padding: 1rem;
   text-align: center;
+`;
+
+const Back = styled(Link)`
+  padding: 0.8rem 1.7rem;
+  text-decoration: none;
+  width: 100%;
+  color: #fff;
+  border: 1px solid #faffd1;
+  background: rgba(66, 194, 245, 0.8);
+  border-radius: 3rem;
+  margin-left: 0.2rem;
+  cursor: pointer;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+  font-weight: bold;
+  font-size: 1.2rem;
+
+  &:hover {
+    background: rgba(243, 255, 74, 0.9);
+    color: #fff;
+    font-weight: bold;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+      1px 1px 0 #000;
+    font-size: 1.2rem;
+  }
 `;
 
 const CartSubtotal = styled.p`
