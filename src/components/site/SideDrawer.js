@@ -1,8 +1,19 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Axios from 'axios';
+import { useContext } from 'react';
+import UserContext from '../../context/UserContext';
+import domain from '../../util/domain';
 
 const SideDrawer = ({ show }) => {
+  const { user, getUser } = useContext(UserContext);
+
+  async function logOut() {
+    await Axios.get(`${domain}/auth/logOut`);
+    await getUser();
+  }
+
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
@@ -12,6 +23,27 @@ const SideDrawer = ({ show }) => {
 
   return (
     <StyleSideDrawer show={show}>
+      {user === null ? (
+        <>
+          <Li>
+            <LoginLink to="/login">Login</LoginLink>
+          </Li>
+          <Li>
+            <RegisterLogoutLink to="/register">Register</RegisterLogoutLink>
+          </Li>
+        </>
+      ) : (
+        user && (
+          <Li>
+            <RegisterLogoutLink to="/" onClick={logOut}>
+              Log Out
+            </RegisterLogoutLink>
+          </Li>
+        )
+      )}
+      <Li>
+        <NavLink to="/">Shop</NavLink>
+      </Li>
       <Li>
         <CartButton>
           <CartLink to="/cart">
@@ -21,15 +53,6 @@ const SideDrawer = ({ show }) => {
           </CartLink>
         </CartButton>
       </Li>
-      <Li>
-        <NavLink to="/">Shop</NavLink>
-      </Li>
-      {/* <Li>
-      <NavLink to="/login">Login</NavLink>
-    </Li>
-    <Li>
-      <NavLink to="/register">Register</NavLink>
-    </Li> */}
     </StyleSideDrawer>
   );
 };
@@ -81,8 +104,26 @@ const NavLink = styled(Link)`
   }
 `;
 
+const LoginLink = styled(Link)`
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 700;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+  &:hover {
+    color: #efff12;
+  }
+`;
+
+const RegisterLogoutLink = styled(LoginLink)`
+  margin-right: 2rem;
+`;
+
 const CartButton = styled.div`
-  background: rgba(36, 101, 166, 0.5);
+  background: rgba(36, 101, 166, 0.3);
   padding: 10px;
   border-radius: 8px;
   &:hover {

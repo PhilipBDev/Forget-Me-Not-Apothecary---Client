@@ -27,7 +27,7 @@ export default ProductCard;
 const CardStyle = styled.div`
   width: 300px;
   padding: 1rem;
-  background: rgba(36, 101, 166, 0.5);
+  background: rgba(36, 101, 166, 0.6);
   color: #fff;
   border-radius: 1.5rem;
   border: 2px solid #fff;

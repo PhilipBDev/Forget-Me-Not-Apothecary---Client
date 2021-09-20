@@ -5,20 +5,31 @@ import Navbar from './components/site/Navbar';
 import Cart from './components/order/Cart';
 import Storefront from './components/content/Storefront';
 import ProductPage from './components/content/ProductPage';
+import Login from './components/user/Login';
+import Register from './components/user/Register';
+import { UserContextProvider } from './context/UserContext';
+import Axios from 'axios';
+
+// Default Header
+Axios.defaults.withCredentials = true;
 
 const App = () => {
   return (
-    <Router>
-      <GlobalStyle />
-      <Navbar />
-      <Main>
-        <Switch>
-          <Route exact path="/" component={Storefront} />
-          <Route exact path="/product/:id" component={ProductPage} />
-          <Route exact path="/cart" component={Cart} />
-        </Switch>
-      </Main>
-    </Router>
+    <UserContextProvider>
+      <Router>
+        <GlobalStyle />
+        <Navbar />
+        <Main>
+          <Switch>
+            <Route exact path="/" component={Storefront} />
+            <Route exact path="/product/:id" component={ProductPage} />
+            <Route exact path="/cart" component={Cart} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
+          </Switch>
+        </Main>
+      </Router>
+    </UserContextProvider>
   );
 };
 
