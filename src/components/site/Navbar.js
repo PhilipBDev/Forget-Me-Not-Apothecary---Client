@@ -39,7 +39,12 @@ const Title = styled(Link)`
   text-decoration: none;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
     1px 1px 0 #000;
-  @media (max-width: 640px) {
-    font-size: 1.4rem;
+
+  @media (max-width: 840px) {
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
   }
 `;

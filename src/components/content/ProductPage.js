@@ -1,12 +1,15 @@
 import styled from 'styled-components';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import UserContext from '../../context/UserContext';
 
 // Actions
 import { getProductDetails } from '../../redux/actions/productActions';
 import { addToCart } from '../../redux/actions/cartActions';
 
 const ProductPage = ({ match, history }) => {
+  const { user } = useContext(UserContext);
+
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
 
@@ -46,7 +49,20 @@ const ProductPage = ({ match, history }) => {
           <RightSide>
             <RightInfo>
               <RightParagraph>
-                Price: <span>{product.price}</span>
+                {user === null ? (
+                  <>
+                    Price: <span>{product.price}</span>
+                  </>
+                ) : (
+                  user && (
+                    <>
+                      Price:{' '}
+                      <span>
+                        {Math.round(product.price - product.price / 10)}
+                      </span>
+                    </>
+                  )
+                )}
               </RightParagraph>
               <RightParagraph>
                 Status:{' '}

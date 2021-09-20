@@ -18,7 +18,7 @@ export const UserWrapper = styled.div`
   padding-bottom: 3rem;
   width: 20rem;
   margin: 0 auto;
-  margin-top: 2rem;
+  margin-top: 3rem;
 `;
 
 export const InputStyle = styled.input`

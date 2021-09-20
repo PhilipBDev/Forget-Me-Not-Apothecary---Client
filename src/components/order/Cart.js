@@ -1,12 +1,18 @@
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import SingleItem from './SingleItem';
+import PayPalOrder from './PayPalOrder';
+import UserContext from '../../context/UserContext';
 
 import { addToCart, removeFromCart } from '../../redux/actions/cartActions';
 
 const Cart = () => {
+  const { user } = useContext(UserContext);
+
+  const [checkout, setCheckout] = useState(false);
+
   const dispatch = useDispatch();
 
   const cart = useSelector((state) => state.cart);
@@ -16,10 +22,12 @@ const Cart = () => {
 
   const qtyChangeHandler = (id, qty) => {
     dispatch(addToCart(id, qty));
+    setCheckout(false);
   };
 
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id));
+    setCheckout(false);
   };
 
   const getCartCount = () => {
@@ -31,6 +39,8 @@ const Cart = () => {
       .reduce((price, item) => price + item.price * item.qty, 0)
       .toFixed(2);
   };
+
+  console.log(cartItems);
 
   return (
     <CartStyle>
@@ -54,11 +64,34 @@ const Cart = () => {
       <RightSide>
         <CartInfo>
           <CartSubtotal>Subtotal for ({getCartCount()}) items:</CartSubtotal>
-          <CartPrice>${getCartSubTotal()}</CartPrice>
+
+          {user === null ? (
+            <>
+              <CartPrice>${getCartSubTotal()}</CartPrice>
+            </>
+          ) : (
+            user && (
+              <>
+                <CartPrice>
+                  ${Math.round(getCartSubTotal() - getCartSubTotal() / 10)}
+                </CartPrice>
+              </>
+            )
+          )}
         </CartInfo>
-        <ButtonStyle>
-          <CheckoutBtn>Proceed to Checkout</CheckoutBtn>
-        </ButtonStyle>
+        <>
+          {checkout ? (
+            <PayPalOrder orderTotal={getCartSubTotal()} />
+          ) : (
+            <ButtonStyle
+              onClick={() => {
+                setCheckout(true);
+              }}
+            >
+              <CheckoutBtn>Proceed to Checkout</CheckoutBtn>
+            </ButtonStyle>
+          )}
+        </>
       </RightSide>
     </CartStyle>
   );

@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import UserContext from '../../context/UserContext';
 
 const SingleItem = ({ item, qtyChangeHandler, removeHandler }) => {
+  const { user } = useContext(UserContext);
+
   return (
     <ItemStyle>
       <div>
@@ -11,7 +15,17 @@ const SingleItem = ({ item, qtyChangeHandler, removeHandler }) => {
       <ItemName to={`/product/${item.product}`}>
         <p>{item.name}</p>
       </ItemName>
-      <ItemPrice>{item.price}</ItemPrice>
+      {user === null ? (
+        <>
+          <ItemPrice>{item.price}</ItemPrice>
+        </>
+      ) : (
+        user && (
+          <>
+            <ItemPrice>${Math.round(item.price - item.price / 10)}</ItemPrice>
+          </>
+        )
+      )}
 
       <ItemSelect
         value={item.qty}

@@ -5,6 +5,7 @@ import Axios from 'axios';
 import { useContext } from 'react';
 import UserContext from '../../context/UserContext';
 import domain from '../../util/domain';
+import Tooltip from './Tooltip';
 
 const SideDrawer = ({ show }) => {
   const { user, getUser } = useContext(UserContext);
@@ -25,6 +26,7 @@ const SideDrawer = ({ show }) => {
     <StyleSideDrawer show={show}>
       {user === null ? (
         <>
+          <Tooltip />
           <Li>
             <LoginLink to="/login">Login</LoginLink>
           </Li>
@@ -70,7 +72,7 @@ const StyleSideDrawer = styled.ul`
 
   @media (max-width: 768px) {
     flex-flow: column nowrap;
-    background-color: rgba(103, 105, 88, 0.5);
+    background-color: rgba(103, 105, 88, 0.8);
     position: fixed;
     transform: ${({ show }) => (show ? 'translateX(0)' : 'translateX(100%)')};
     top: 0;
@@ -120,6 +122,11 @@ const LoginLink = styled(Link)`
 
 const RegisterLogoutLink = styled(LoginLink)`
   margin-right: 2rem;
+
+  @media (max-width: 768px) {
+    margin-right: 0;
+    margin-bottom: 2rem;
+  }
 `;
 
 const CartButton = styled.div`

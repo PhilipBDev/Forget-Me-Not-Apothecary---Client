@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import UserContext from '../../context/UserContext';
 
 const ProductCard = ({ imageUrl, name, price, description, productId }) => {
+  const { user } = useContext(UserContext);
+
   return (
     <CardStyle>
       <CardImage src={imageUrl} alt={name} />
@@ -10,8 +14,11 @@ const ProductCard = ({ imageUrl, name, price, description, productId }) => {
         <Title>{name}</Title>
         <Description>{description}</Description>
 
-        <Price>${price}</Price>
-
+        {user === null ? (
+          <Price>${price}</Price>
+        ) : (
+          user && <Price>${Math.round(price - price / 10)}</Price>
+        )}
         <ProductLink to={`/product/${productId}`}>View</ProductLink>
       </CardInfo>
     </CardStyle>
@@ -27,8 +34,9 @@ export default ProductCard;
 const CardStyle = styled.div`
   width: 300px;
   padding: 1rem;
-  background: rgba(36, 101, 166, 0.6);
+  background: rgba(36, 101, 166, 0.5);
   color: #fff;
+  text-align: center;
   border-radius: 1.5rem;
   border: 2px solid #fff;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
