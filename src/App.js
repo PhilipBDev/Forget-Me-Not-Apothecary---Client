@@ -7,6 +7,7 @@ import Storefront from './components/content/Storefront';
 import ProductPage from './components/content/ProductPage';
 import Login from './components/user/Login';
 import Register from './components/user/Register';
+import OrderConfirmation from './components/order/OrderConfirmation';
 import { UserContextProvider } from './context/UserContext';
 import Axios from 'axios';
 
@@ -26,6 +27,11 @@ const App = () => {
             <Route exact path="/cart" component={Cart} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
+            <Route
+              exact
+              path="/orderconfirmation"
+              component={OrderConfirmation}
+            />
           </Switch>
         </Main>
       </Router>

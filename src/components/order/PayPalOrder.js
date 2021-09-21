@@ -41,7 +41,7 @@ const PayPalOrder = ({ orderTotal }) => {
   }, [orderTotal, user]);
 
   if (paid) {
-    history.push('/');
+    history.push('/orderconfirmation');
     localStorage.clear();
     window.location.reload();
   }

@@ -51,14 +51,14 @@ const ProductPage = ({ match, history }) => {
               <RightParagraph>
                 {user === null ? (
                   <>
-                    Price: <span>{product.price}</span>
+                    Price: $<span>{product.price}</span>
                   </>
                 ) : (
                   user && (
                     <>
                       Price:{' '}
                       <span>
-                        {Math.round(product.price - product.price / 10)}
+                        ${Math.round(product.price - product.price / 10)}
                       </span>
                     </>
                   )

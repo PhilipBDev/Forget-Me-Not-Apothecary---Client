@@ -69,7 +69,6 @@ const StyleSideDrawer = styled.ul`
   list-style: none;
   display: flex;
   flex-flow: row nowrap;
-
   @media (max-width: 768px) {
     flex-flow: column nowrap;
     background-color: rgba(103, 105, 88, 0.8);
@@ -122,7 +121,6 @@ const LoginLink = styled(Link)`
 
 const RegisterLogoutLink = styled(LoginLink)`
   margin-right: 2rem;
-
   @media (max-width: 768px) {
     margin-right: 0;
     margin-bottom: 2rem;
