@@ -45,6 +45,6 @@ const Title = styled(Link)`
   }
 
   @media (max-width: 768px) {
-    font-size: 2rem;
+    font-size: 1rem;
   }
 `;
