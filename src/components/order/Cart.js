@@ -157,6 +157,7 @@ const CartInfo = styled.div`
 `;
 
 const Back = styled(Link)`
+  display: flex;
   padding: 0.8rem 1.7rem;
   text-decoration: none;
   width: 100%;
