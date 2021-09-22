@@ -122,6 +122,7 @@ const CartStyle = styled.div`
 `;
 
 const CartHeader = styled.h2`
+  display: flex;
   font-size: 1.5rem;
   color: #fff;
   padding-bottom: 2rem;
@@ -178,10 +179,6 @@ const Back = styled(Link)`
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
       1px 1px 0 #000;
     font-size: 1.2rem;
-  }
-
-  @media (max-width: 768px) {
-    margin-top: 1rem;
   }
 `;
 
