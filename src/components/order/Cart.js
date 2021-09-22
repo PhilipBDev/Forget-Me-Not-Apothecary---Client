@@ -123,6 +123,7 @@ const CartStyle = styled.div`
 
 const CartHeader = styled.h2`
   display: flex;
+  flex-direction: column;
   font-size: 1.5rem;
   color: #fff;
   padding-bottom: 2rem;
