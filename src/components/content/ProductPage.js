@@ -236,7 +236,7 @@ const RightButton = styled.button`
   }
 
   @media (max-width: 768px) {
-    margin-top: 1rem;
+    display: flex;
   }
 `;
 
