@@ -234,6 +234,10 @@ const RightButton = styled.button`
       1px 1px 0 #000;
     font-size: 1.2rem;
   }
+
+  @media (max-width: 768px) {
+    margin-top: 1rem;
+  }
 `;
 
 const Header = styled.h2`
