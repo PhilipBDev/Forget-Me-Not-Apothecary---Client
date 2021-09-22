@@ -47,9 +47,10 @@ const Cart = () => {
       <LeftSide>
         <CartHeader>Shopping Cart</CartHeader>
         {cartItems.length === 0 ? (
-          <CartHeader>
-            Your Cart Is Empty <Back to="/">Go Back</Back>
-          </CartHeader>
+          <>
+            <CartHeader>Your Cart Is Empty</CartHeader>
+            <Back to="/">Go Back</Back>
+          </>
         ) : (
           cartItems.map((item) => (
             <SingleItem
@@ -122,8 +123,6 @@ const CartStyle = styled.div`
 `;
 
 const CartHeader = styled.h2`
-  display: flex;
-  flex-direction: column;
   font-size: 1.5rem;
   color: #fff;
   padding-bottom: 2rem;
